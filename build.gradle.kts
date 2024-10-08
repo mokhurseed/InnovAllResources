@@ -12,5 +12,9 @@ buildscript {
     }
     dependencies {
         classpath(libs.realm)
+        classpath(libs.android.maven.gradle.plugin)
     }
 }
+
+
+

@@ -1,11 +1,14 @@
 plugins {
     id("com.android.library")
+
 //    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     id("realm-android")
 
 }
+
+group = "com.gitlab.KhurseedAnsari"
 
 android {
     namespace = "com.innov.geotracking"
@@ -53,6 +56,8 @@ android {
 
 
 dependencies {
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -84,3 +89,40 @@ dependencies {
 
 
 }
+
+
+
+/*publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name = "Innov Geotracking"
+                description = "track the location and store lat ,long in realm db"
+                url = "https://gitlab.com/"
+                properties = mapOf(
+                    "myProp" to "value",
+                    "prop.with.dots" to "anotherValue"
+                )
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "12085525"
+                        name = "Khurseed Ansari"
+                        email = "khurseeda@innov.in"
+                    }
+                }
+                scm {
+                    connection = "https://gitlab.com/pranaypatil7744/all_resources.git"
+                    developerConnection = "git@gitlab.com:pranaypatil7744/all_resources.git"
+                    url = "https://gitlab.com/pranaypatil7744/all_resources/-/tree/all_geotracking/app/src/main"
+                }
+            }
+        }
+    }
+}*/
+

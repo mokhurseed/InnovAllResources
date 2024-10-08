@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+androidMavenGradlePlugin = "2.1"
 geotracking = "1"
 alerter = "7.2.4"
 glide = "4.16.0"
@@ -31,6 +32,7 @@ sspAndroid = "1.1.1"
 
 
 [libraries]
+android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "androidMavenGradlePlugin" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
