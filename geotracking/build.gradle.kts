@@ -1,6 +1,6 @@
 plugins {
     id("com.android.library")
-
+id("maven-publish")
 //    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
@@ -8,7 +8,7 @@ plugins {
 
 }
 
-group = "com.gitlab.KhurseedAnsari"
+//group = "com.gitlab.KhurseedAnsari"
 
 android {
     namespace = "com.innov.geotracking"
@@ -57,7 +57,6 @@ android {
 
 dependencies {
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -90,7 +89,29 @@ dependencies {
 
 }
 
+publishing {
+    repositories {
+        maven {
+            name = "com.innov.geotracking"
+            url = uri("https://gitlab.com/pranaypatil7744/all_resources.git")
+            credentials {
+                username = "Khurseed Ansari"
+                password = "glpat-yVhPk2uKyM1sj5xxaHov"
+            }
+        }
+    }
 
+
+/*    publications {
+        aar
+        aar(MavenPublication) {
+            groupId 'com'
+            artifactId 'test'
+            version '1.0.0'
+            artifact("set your aar file location")
+        }
+    }*/
+}
 
 /*publishing {
     publications {
