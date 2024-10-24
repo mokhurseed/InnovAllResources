@@ -17,6 +17,7 @@ android {
         minSdk = 24
         aarMetadata {
             minCompileSdk = 24
+
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
