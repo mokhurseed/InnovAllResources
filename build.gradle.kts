@@ -16,6 +16,7 @@ buildscript {
         classpath(libs.realm)
         classpath(libs.android.maven.gradle.plugin)
     }
+
 }
 
 
