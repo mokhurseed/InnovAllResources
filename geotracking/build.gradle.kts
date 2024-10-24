@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
-id("maven-publish")
-//    alias(libs.plugins.android.application)
+    id("maven-publish")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     id("realm-android")
@@ -15,12 +14,10 @@ android {
     compileSdk = 34
 
     defaultConfig {
-//        applicationId = "com.innov.geotracking"
         minSdk = 24
-        targetSdk = 34
-//        versionCode = 1
-//        versionName = "1.0"
-
+        aarMetadata {
+            minCompileSdk = 24
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -33,6 +30,13 @@ android {
             )
         }
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -49,7 +53,6 @@ android {
         viewBinding = true
         dataBinding = true
     }
-
 
 
 }
@@ -88,63 +91,20 @@ dependencies {
 
 
 }
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.innov"
+                artifactId = "geotracking"
+                version = "1.0.2"
 
-
-publishing {
-    repositories {
-        maven {
-            name = "com.innov.geotracking"
-            url = uri("https://gitlab.com/pranaypatil7744/all_resources.git")
-            credentials {
-                username = "Khurseed Ansari"
-                password = "glpat-yVhPk2uKyM1sj5xxaHov"
             }
         }
     }
 
-
-/*    publications {
-        aar
-        aar(MavenPublication) {
-            groupId 'com'
-            artifactId 'test'
-            version '1.0.0'
-            artifact("set your aar file location")
-        }
-    }*/
 }
 
-/*publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            pom {
-                name = "Innov Geotracking"
-                description = "track the location and store lat ,long in realm db"
-                url = "https://gitlab.com/"
-                properties = mapOf(
-                    "myProp" to "value",
-                    "prop.with.dots" to "anotherValue"
-                )
-                licenses {
-                    license {
-                        name = "The Apache License, Version 2.0"
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    }
-                }
-                developers {
-                    developer {
-                        id = "12085525"
-                        name = "Khurseed Ansari"
-                        email = "khurseeda@innov.in"
-                    }
-                }
-                scm {
-                    connection = "https://gitlab.com/pranaypatil7744/all_resources.git"
-                    developerConnection = "git@gitlab.com:pranaypatil7744/all_resources.git"
-                    url = "https://gitlab.com/pranaypatil7744/all_resources/-/tree/all_geotracking/app/src/main"
-                }
-            }
-        }
-    }
-}*/
+
 
