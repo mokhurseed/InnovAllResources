@@ -99,7 +99,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.innov"
                 artifactId = "geotracking"
-                version = "1.0.3"
+                version = "1.0.4"
 
             }
         }
