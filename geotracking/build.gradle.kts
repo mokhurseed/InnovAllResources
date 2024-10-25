@@ -20,6 +20,8 @@ android {
 
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles ( "consumer-rules.pro")
+
     }
 
     buildTypes {
@@ -39,18 +41,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "21"
     }
+
 
     buildFeatures {
         buildConfig = true
-    }
-
-    buildFeatures {
         viewBinding = true
         dataBinding = true
     }
@@ -92,20 +92,34 @@ dependencies {
 
 
 }
-afterEvaluate {
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.innov"
+            artifactId = "geotracking"
+            version = "1.0.5"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
+/*afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "com.innov"
                 artifactId = "geotracking"
-                version = "1.0.4"
+                version = "1.0.5"
 
             }
         }
     }
 
-}
+}*/
 
 
 
