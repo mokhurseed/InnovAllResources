@@ -99,7 +99,6 @@ publishing {
             groupId = "com.innov"
             artifactId = "geotracking"
             version = "1.0.5"
-
             afterEvaluate {
                 from(components["release"])
             }
