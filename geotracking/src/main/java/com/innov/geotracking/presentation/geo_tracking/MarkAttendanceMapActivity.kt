@@ -13,6 +13,8 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.content.ContextCompat
@@ -121,6 +123,22 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
         LocalBroadcastManager.getInstance(this).registerReceiver(
             locationUpdateReceiver, IntentFilter("com.innov.hrms.LOCATION_UPDATE")
         )
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                if (isFromNotificationFlow) {
+                    val intent = Intent(this@MarkAttendanceMapActivity, GeoTrackingActivity::class.java)
+                    intent.putExtra(SOURCE_ACTIVITY, MARK_ATTENDANCE_MAP_ACTIVITY)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    this@MarkAttendanceMapActivity.onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+
+
     }
 
     private fun setUpListeners() {
@@ -458,16 +476,7 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
         pendingMapAction = null
     }
 
-    override fun onBackPressed() {
-        if (isFromNotificationFlow) {
-            val intent = Intent(this, GeoTrackingActivity::class.java)
-            intent.putExtra(SOURCE_ACTIVITY, MARK_ATTENDANCE_MAP_ACTIVITY)
-            startActivity(intent)
-            finish()
-        } else {
-            super.onBackPressedDispatcher.onBackPressed()
-        }
-    }
+
 
     private fun initializeMap() {
         if (ContextCompat.checkSelfPermission(

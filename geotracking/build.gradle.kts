@@ -90,6 +90,8 @@ dependencies {
     implementation(libs.krealmextensions)
     implementation(libs.androidx.recyclerview)
 
+    implementation(libs.androidx.preference)
+
 
 }
 
