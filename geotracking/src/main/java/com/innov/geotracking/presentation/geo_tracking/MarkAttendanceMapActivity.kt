@@ -124,20 +124,6 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
             locationUpdateReceiver, IntentFilter("com.innov.hrms.LOCATION_UPDATE")
         )
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-                if (isFromNotificationFlow) {
-                    val intent = Intent(this@MarkAttendanceMapActivity, GeoTrackingActivity::class.java)
-                    intent.putExtra(SOURCE_ACTIVITY, MARK_ATTENDANCE_MAP_ACTIVITY)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    this@MarkAttendanceMapActivity.onBackPressedDispatcher.onBackPressed()
-                }
-            }
-        })
-
 
     }
 
@@ -205,8 +191,7 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
                         Intent(this@MarkAttendanceMapActivity, GeoTrackingActivity::class.java)
                     startActivity(intent1)
                     finish()
-                }
-                else {
+                } else {
                     finish()
                 }
 
@@ -328,21 +313,32 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
 
     private fun setUpNotificationPermission(): Boolean {
 
-        return if (getNotificationPermission(this@MarkAttendanceMapActivity))
-        {
+        return if (getNotificationPermission(this@MarkAttendanceMapActivity)) {
             true
-        }else{
+        } else {
             requestNotificationPermission(this@MarkAttendanceMapActivity)
             false
         }
 
-      /*  return if (!PermissionUtils.getNotificationPermission(this)) {
-            // Request notification permission
-            PermissionUtils.requestNotificationPermission(this)
-            false
+        /*  return if (!PermissionUtils.getNotificationPermission(this)) {
+              // Request notification permission
+              PermissionUtils.requestNotificationPermission(this)
+              false
+          } else {
+              true
+          }*/
+    }
+
+
+    override fun onBackPressed() {
+        if (isFromNotificationFlow) {
+            val intent = Intent(this, GeoTrackingActivity::class.java)
+            intent.putExtra(SOURCE_ACTIVITY, MARK_ATTENDANCE_MAP_ACTIVITY)
+            startActivity(intent)
+            finish()
         } else {
-            true
-        }*/
+            super.onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun drawTripPolyline(googleMap: GoogleMap) {
@@ -475,7 +471,6 @@ class MarkAttendanceMapActivity : BaseActivity(), OnMapReadyCallback,
         pendingMapAction?.invoke()
         pendingMapAction = null
     }
-
 
 
     private fun initializeMap() {
