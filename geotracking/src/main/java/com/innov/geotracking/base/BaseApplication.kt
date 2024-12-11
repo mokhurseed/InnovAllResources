@@ -58,7 +58,7 @@ class BaseApplication : Application() {
     }
 
     private fun configureRealmDatabase() {
-        Realm.init(this)
+        Realm.init(applicationContext)
         val realmConfiguration = RealmConfiguration.Builder()
             .name(Constant.DATABASE_NAME)
             .schemaVersion(1)
